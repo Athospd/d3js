@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Treino de D3</title>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -13,6 +14,25 @@
 	<h1>Treino de D3.js</h1>
 	<hr>
 	<div class="container">
+		<script type="text/javascript">
+	        $(document).ready(function(){
+	            $('#carregar').click(function(){
+	                $.getJSON('http://www.botecodigital.info/exemplos/json/dados.json', function(data) {
+	                    $('#nome').html( data.nome);
+	                    $('#sobrenome').html( data.sobrenome);
+	                    $('#idade').html( data.idade);
+	                    $('#site').html( data.site);
+		            });
+		        });
+	    	});
+		</script>
+		<input type="button" id="carregar" value="clique aqui" />
+		<br />
+		<br />
+		<strong>Nome:</strong> <span id="nome"></span><br />
+		<strong>Sobrenome:</strong> <span id="sobrenome"></span><br />
+		<strong>Idade:</strong> <span id="idade"></span><br />
+		<strong>Site:</strong> <span id="site"></span><br />
 	</div>
 </body>
 </html>

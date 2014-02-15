@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>  
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="static/js/remoteJSON.js"></script>
   <style>
 
   body {
@@ -55,9 +61,6 @@
   </style>
 </head>
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
 <script>
 
 var width = 960,
@@ -137,13 +140,8 @@ point.append("text")
     .attr("dy", ".71em")
     .text(function(d) { return d.key; });
 
-var url = 'http://bl.ocks.org/mbostock/raw/4090846/world-50m.json';
-var xhr = createCORSRequest('PUT', url);
-xhr.setRequestHeader(
-    'Access-Control-Allow-Origin', '*');
-xhr.send();
-
-var world = init();
+var url = "http://api.alice.com"//"http://mbostock/raw/4090846/world-50m.json";
+var world = makeCorsRequest(url);
 
 svg.insert("path", ".graticule")
     .datum(topojson.feature(world, world.objects.land))
@@ -154,6 +152,7 @@ svg.insert("path", ".graticule")
     .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
     .attr("class", "boundary")
     .attr("d", path);
+
 
 d3.select(self.frameElement).style("height", height + "px");
 
